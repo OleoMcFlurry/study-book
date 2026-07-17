@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+# Virtual environments
+.venv
+
+# 本机运行数据与开发工具状态
+.env
+.env.*
+data/
+.snow/
+.workflow/
+# macOS
+.DS_Store

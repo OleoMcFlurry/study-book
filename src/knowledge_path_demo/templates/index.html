@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>知识路径学习 Demo</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>知识路径学习 Demo</h1>
+      <p class="hint">
+        输入目标与背景 → 生成前置依赖图 → 自评掌握度 →
+        生成补缺路径。支持任意兼容 Chat Completions
+        的网关；密钥可在下方填写，仅存于浏览器本地。
+      </p>
+
+      <section class="card">
+        <h2>0. 模型配置</h2>
+        <label
+          >API Key<input
+            id="api-key"
+            type="password"
+            autocomplete="off"
+            placeholder="sk-... 或网关密钥"
+        /></label>
+        <label
+          >Base URL<input
+            id="base-url"
+            type="text"
+            placeholder="https://api.openai.com/v1"
+        /></label>
+        <label
+          >模型名称<input id="model" type="text" placeholder="gpt-4o-mini"
+        /></label>
+        <label
+          >思考强度
+          <select id="reasoning-effort">
+            <option value="none">关闭（none）</option>
+            <option value="low">低（low）</option>
+            <option value="medium">中（medium）</option>
+            <option value="high">高（high）</option>
+          </select>
+        </label>
+        <label class="inline"
+          ><input id="enable-thinking" type="checkbox" /> 发送
+          enable_thinking</label
+        >
+        <label
+          >输出 Token 上限（上下文/生成窗口）<input
+            id="max-tokens"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="0 表示不限制字段"
+        /></label>
+        <label
+          >温度 temperature<input
+            id="temperature"
+            type="number"
+            min="0"
+            max="2"
+            step="0.1"
+            placeholder="0.2"
+        /></label>
+        <p class="hint" id="llm-server-hint"></p>
+        <button id="btn-save-llm" type="button">保存到本机</button>
+      </section>
+
+      <section class="card">
+        <h2>1. 创建会话</h2>
+        <label
+          >学习目标<textarea
+            id="goal"
+            rows="2"
+            placeholder="例如：学会用 Python 做数据分析"
+          ></textarea>
+        </label>
+        <label
+          >背景与能力<textarea
+            id="background"
+            rows="2"
+            placeholder="学历、相关经验、用途、时间预算"
+          ></textarea>
+        </label>
+        <label
+          >已知关键词（逗号分隔）<input
+            id="keywords"
+            type="text"
+            placeholder="Python, 表格"
+        /></label>
+        <button id="btn-create" type="button">创建会话</button>
+      </section>
+
+      <section class="card">
+        <h2>2. 依赖图与掌握度</h2>
+        <p>
+          会话 ID：<code id="session-id">—</code> 状态：<span id="status"
+            >—</span
+          >
+        </p>
+        <button id="btn-graph" type="button" disabled>生成依赖图</button>
+        <div id="tree"></div>
+      </section>
+
+      <section class="card">
+        <h2>3. 补缺路径</h2>
+        <button id="btn-path" type="button" disabled>生成补缺路径</button>
+        <ol id="path"></ol>
+      </section>
+
+      <pre id="error" class="error" hidden></pre>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
