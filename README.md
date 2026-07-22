@@ -4,16 +4,22 @@
 
 ## 要求
 
-- Python ≥ 3.12
-- [uv](https://github.com/astral-sh/uv)
-- 任意兼容 **OpenAI Chat Completions**（`/v1/chat/completions`）的网关
+1. Python ≥ 3.12
+2. [uv](https://docs.astral.sh/uv/)
+3. Node.js 与 pnpm
+4. 任意兼容 **OpenAI Chat Completions**（`/v1/chat/completions`）的网关
 
 ## 安装与运行
 
 ```bash
 uv sync --extra dev
+cd frontend
+pnpm install
+pnpm build
+cd ..
+
 # 可选：服务端默认密钥；也可仅在网页填写
-export OPENAI_API_KEY=sk-...
+export OPENAI_API_KEY=sk-xxx
 export OPENAI_BASE_URL=https://api.openai.com/v1
 export OPENAI_MODEL=gpt-4o-mini
 # 可选默认思考与窗口
@@ -24,6 +30,16 @@ uv run knowledge-path-demo
 ```
 
 浏览器打开 http://127.0.0.1:8000
+
+前端开发模式：
+
+```bash
+# 先在项目根目录启动 FastAPI，再开启 Vite 开发服务器
+cd frontend
+pnpm dev
+```
+
+Vite 会将 `/api` 请求代理到 `http://127.0.0.1:8000`。
 
 页面「模型配置」可自定义：
 
@@ -36,7 +52,13 @@ uv run knowledge-path-demo
 
 ## 测试
 
+后端测试导入应用时要求前端构建产物已经存在。清洁检出后应执行完整命令：
+
 ```bash
+cd frontend
+pnpm install
+pnpm build
+cd ..
 uv run pytest -q
 ```
 

@@ -1,5 +1,7 @@
 """API 集成测试。"""
 
+import re
+
 from fastapi.testclient import TestClient
 
 from knowledge_path_demo.app import create_app
@@ -58,6 +60,26 @@ class FakeLlm(LlmClient):
         c.default_options = options if options is not None else self.default_options
         c.timeout = self.timeout
         return c
+
+
+def test_vite_frontend_is_served(tmp_path):
+    app = create_app(
+        settings=Settings(database_path=str(tmp_path / "frontend.db")),
+        repo=SessionRepository(tmp_path / "frontend.db"),
+        llm=FakeLlm(),
+    )
+    client = TestClient(app)
+
+    response = client.get("/")
+    assert response.status_code == 200
+    assert '<div id="root"></div>' in response.text
+    assert "/static/dist/assets/" in response.text
+
+    asset_path = re.search(r'src="(/static/dist/assets/[^"]+\.js)"', response.text)
+    assert asset_path is not None
+    asset_response = client.get(asset_path.group(1))
+    assert asset_response.status_code == 200
+    assert "javascript" in asset_response.headers["content-type"]
 
 
 def test_missing_llm_config(tmp_path):

@@ -1,0 +1,270 @@
+:root {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #171717;
+  background: #f6f7f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: radial-gradient(
+      circle at 10% -10%,
+      rgba(33, 150, 243, 0.12),
+      transparent 34rem
+    ),
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(103, 58, 183, 0.1),
+      transparent 30rem
+    ),
+    #f6f7f9;
+}
+
+.hero {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  padding: 18px max(24px, calc((100vw - 1220px) / 2));
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.78);
+}
+.hero-icon,
+.section-icon {
+  display: grid;
+  place-items: center;
+  color: #1677ff;
+  background: rgba(22, 119, 255, 0.1);
+  border-radius: 10px;
+}
+.hero-icon {
+  width: 42px;
+  height: 42px;
+}
+.hero-title {
+  margin: 0 !important;
+  font-size: 22px !important;
+  line-height: 1.2 !important;
+}
+.hero-subtitle {
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 13px;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(480px, 1.18fr);
+  gap: 16px;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.section-card {
+  overflow: hidden;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+}
+.section-icon {
+  width: 34px;
+  height: 34px;
+}
+.section-title {
+  margin: 0 !important;
+  font-size: 16px !important;
+}
+.step-label {
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+.two-columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.field-label {
+  font-size: 13px;
+}
+.section-footer {
+  margin-top: 2px;
+}
+.helper-text {
+  color: rgba(0, 0, 0, 0.48);
+  font-size: 12px;
+}
+.session-bar {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.025);
+}
+.node-list,
+.path-list {
+  min-height: 180px;
+  max-height: 620px;
+  overflow: auto;
+  padding-right: 2px;
+}
+.knowledge-node,
+.path-item {
+  border-color: rgba(0, 0, 0, 0.075) !important;
+  border-radius: 12px !important;
+}
+.node-index,
+.path-index {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  color: #1677ff;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(22, 119, 255, 0.1);
+}
+.node-description {
+  color: rgba(0, 0, 0, 0.52);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.path-item ul {
+  margin: 0;
+  padding-left: 21px;
+  color: rgba(0, 0, 0, 0.68);
+}
+.path-item li {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+.acceptance {
+  border-radius: 9px !important;
+}
+.error-dock {
+  position: fixed;
+  z-index: 20;
+  right: 24px;
+  bottom: 24px;
+  width: min(520px, calc(100vw - 48px));
+}
+.error-dock pre {
+  overflow: auto;
+  max-height: 220px;
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+}
+
+.app-shell[data-theme="dark"] {
+  color: #f2f2f2;
+  background: radial-gradient(
+      circle at 10% -10%,
+      rgba(33, 150, 243, 0.18),
+      transparent 34rem
+    ),
+    #0d0d0e;
+}
+.app-shell[data-theme="dark"] .hero {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 15, 16, 0.8);
+}
+.app-shell[data-theme="dark"] .section-card {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(22, 22, 24, 0.88) !important;
+}
+.app-shell[data-theme="dark"] .hero-subtitle,
+.app-shell[data-theme="dark"] .helper-text,
+.app-shell[data-theme="dark"] .node-description,
+.app-shell[data-theme="dark"] .path-item ul {
+  color: rgba(255, 255, 255, 0.55);
+}
+.app-shell[data-theme="dark"] .step-label {
+  color: rgba(255, 255, 255, 0.35);
+}
+.app-shell[data-theme="dark"] .session-bar {
+  background: rgba(255, 255, 255, 0.04);
+}
+.app-shell[data-theme="dark"] .knowledge-node,
+.app-shell[data-theme="dark"] .path-item {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-shell[data-theme="auto"] {
+    color: #f2f2f2;
+    background: radial-gradient(
+        circle at 10% -10%,
+        rgba(33, 150, 243, 0.18),
+        transparent 34rem
+      ),
+      #0d0d0e;
+  }
+  .app-shell[data-theme="auto"] .hero {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(15, 15, 16, 0.8);
+  }
+  .app-shell[data-theme="auto"] .section-card {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(22, 22, 24, 0.88) !important;
+  }
+  .app-shell[data-theme="auto"] .hero-subtitle,
+  .app-shell[data-theme="auto"] .helper-text,
+  .app-shell[data-theme="auto"] .node-description,
+  .app-shell[data-theme="auto"] .path-item ul {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .app-shell[data-theme="auto"] .step-label {
+    color: rgba(255, 255, 255, 0.35);
+  }
+  .app-shell[data-theme="auto"] .session-bar {
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .app-shell[data-theme="auto"] .knowledge-node,
+  .app-shell[data-theme="auto"] .path-item {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+  .hero {
+    padding: 14px 16px;
+  }
+  .hero-subtitle {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .two-columns {
+    grid-template-columns: 1fr;
+  }
+  .section-footer {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 10px;
+  }
+}

@@ -5,10 +5,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Literal
 
-from fastapi import Body, FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi import Body, FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from knowledge_path_demo.config import Settings
@@ -85,22 +84,23 @@ def create_app(
     llm.max_depth = settings.graph_max_depth
 
     app = FastAPI(title="知识路径学习 Demo")
-    static_dir = Path(__file__).parent / "static"
-    templates_dir = Path(__file__).parent / "templates"
-    static_dir.mkdir(exist_ok=True)
-    templates_dir.mkdir(exist_ok=True)
-    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
-    templates = Jinja2Templates(directory=str(templates_dir))
+    dist_dir = Path(__file__).parent / "static" / "dist"
+    index_file = dist_dir / "index.html"
+    if not index_file.is_file():
+        raise RuntimeError("前端构建产物不存在，请先在 frontend 目录执行 pnpm build")
+    app.mount(
+        "/static/dist",
+        StaticFiles(directory=str(dist_dir)),
+        name="frontend-static",
+    )
 
     app.state.repo = repo
     app.state.llm = llm
     app.state.settings = settings
 
-    @app.get("/", response_class=HTMLResponse)
-    def index(request: Request) -> Any:
-        return templates.TemplateResponse(
-            request, "index.html", {"request": request}
-        )
+    @app.get("/", response_class=FileResponse)
+    def index() -> FileResponse:
+        return FileResponse(index_file)
 
     @app.get("/api/llm/defaults")
     def llm_defaults() -> dict[str, Any]:
